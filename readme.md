@@ -43,7 +43,7 @@ Once the 3D visualization shows up, you can navigate using standard control sche
  - [x] implement a*
  - [x] implement delaunay triagulation
  - [x] Migrate to a faster & more reliable delaunay triangulation method
- - [ ] Add decimation to delaunay triagulation mesh
+ - [x] Add decimation to delaunay triagulation mesh
  - [ ] algorithm for getting heuristics from decimated mesh
  - [x] Change a* to operate as a library
  - [ ] interactive visualization layer i.e. point and click interaction for testing
