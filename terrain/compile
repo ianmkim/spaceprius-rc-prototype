@@ -1,0 +1,3 @@
+#!/bin/bash
+
+g++ test.cpp -I ./include -L ./lib_ubuntu20.04_x86_64 -lfade25d -Wl,-rpath='$ORIGIN/lib_ubuntu20.04_x86_64'

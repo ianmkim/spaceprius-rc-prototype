@@ -1,0 +1,1 @@
+build/test.dep test.o: test.cpp someTools.h

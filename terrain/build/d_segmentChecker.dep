@@ -1,0 +1,20 @@
+build/d_segmentChecker.dep d_segmentChecker.o: d_segmentChecker.cpp \
+ ../include_fade25d/Fade_2D.h ../include_fade25d/common.h \
+ ../include_fade25d/fadeVersion.h ../include_fade25d/Point2.h \
+ ../include_fade25d/Vector2.h ../include_fade25d/Triangle2.h \
+ ../include_fade25d/TriangleAroundVertexIterator.h \
+ ../include_fade25d/Visualizer2.h ../include_fade25d/Circle2.h \
+ ../include_fade25d/Segment2.h ../include_fade25d/Color.h \
+ ../include_fade25d/Label.h ../include_fade25d/Bbox2.h \
+ ../include_fade25d/Edge2.h ../include_fade25d/Zone2.h \
+ ../include_fade25d/UserPredicates.h ../include_fade25d/MsgBase.h \
+ ../include_fade25d/ConstraintGraph2.h \
+ ../include_fade25d/ConstraintSegment2.h ../include_fade25d/Performance.h \
+ ../include_fade25d/MeshGenParams.h ../include_fade25d/SegmentChecker.h \
+ ../include_fade25d/testDataGenerators.h \
+ ../include_fade25d/freeFunctions.h ../include_fade25d/FadeExport.h \
+ ../include_fade25d/License.h ../include_fade25d/IsoContours.h \
+ ../include_fade25d/EfficientModel.h ../include_fade25d/CutAndFill.h \
+ ../include_fade25d/CAF_Component.h ../include_fade25d/CloudPrepare.h \
+ ../include_fade25d/Visualizer3.h ../include_fade25d/VertexPair2.h \
+ someTools.h
