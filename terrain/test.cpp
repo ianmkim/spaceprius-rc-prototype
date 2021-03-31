@@ -8,6 +8,7 @@
 #include "someTools.h"
 #include "render.h"
 #include "mountain.h"
+#include "decimation.h"
 
 using namespace GEOM_FADE25D;
 
@@ -65,18 +66,6 @@ void write(const std::string& name, const Fade_2D& dt){
     dt.showGeomview((name + ".list").c_str());
     std::cout << gRed("Writing " + name + ".obj") << std::endl;
     dt.writeObj((name + ".obj").c_str());
-}
-
-int random(int low, int high){
-    return low + (std::rand() % (high - low + 1));
-}
-
-void decimate(std::vector<Point2> *points, float percentage){
-    int amountToRemove = points->size() - int(percentage * points->size());
-    if(amountToRemove < 0) return;
-    for(int i = 0; i < amountToRemove; i++){
-        points->erase(points->begin() + random(0, points->size()));
-    }
 }
 
 int main(int argc, char** argv){
