@@ -1,3 +1,6 @@
+#ifndef DELAUNAY_TRIAG_H
+#define DELAUNAY_TRIAG_H
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
@@ -34,7 +37,7 @@ float maxz  = -100000;
 	
 // for showing the points from the file
 FILE *fp;
-int n  = 200000;
+int n  = 5;
 float zoom = 2.5;
 char etext[1000];
 
@@ -524,8 +527,8 @@ void init(){
    glMatrixMode(GL_MODELVIEW);
 }
 
-int main(int argc, char **argv){
-	int mycount = 0;
+void readFromStdin(int argc, char **argv){
+    int mycount = 0;
 	
 	for(int i=0;i<11;++i){				// ignore 1st seven lines
 		fgets(etext, sizeof(etext), stdin);
@@ -566,10 +569,14 @@ int main(int argc, char **argv){
 	
 	printf("PRINTING VALUES mycount =  %d\n", mycount);
 	for(int i=0;i< mycount;++i){		
+        printf("doing %d\n", i);
 		xcoor[i] = (xcoor[i]-meanx)*1.0/(maxx-minx);
 		ycoor[i] = (ycoor[i]-meany)*1.0/(maxy-miny);
 		zcoor[i] = (zcoor[i]-meanz)*1.0/(maxz-minz);		
+        printf("done %d\n", i);
 	}
+
+    printf("all done with scaling");
 	
 	xcoor[0] = -5;	ycoor[0] = -5;
 	xcoor[1] = 5; 	ycoor[1] = -5;
@@ -630,5 +637,6 @@ int main(int argc, char **argv){
     glutReshapeFunc(changeSize);
 
     glutMainLoop();
-    return 0;
 }
+
+#endif
