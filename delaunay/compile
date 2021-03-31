@@ -1,0 +1,3 @@
+#!/bin/bash
+
+g++ delaunay_triag.cpp -lglut -lGL -lGLU

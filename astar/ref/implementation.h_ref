@@ -1,0 +1,35 @@
+#ifndef IMPLEMENTATION_H
+#define IMPLEMENTATION_H
+#include <iostream>
+#include <iomanip>
+#include <unordered_map>
+#include <unordered_set>
+#include <array>
+#include <vector>
+#include <utility>
+#include <queue>
+#include <tuple>
+#include <algorithm>
+#include <cstdlib>
+
+template<class Graph>
+void draw_grid(const Graph& graph, int field_width,
+               std::unordered_map<GridLocation, double>* distances=nullptr,
+               std::unordered_map<GridLocation, GridLocation>* point_to=nullptr,
+               std::vector<GridLocation>* path=nullptr);
+
+void add_rect(SquareGrid& grid, int x1, int y1, int x2, int y2);
+
+SquareGrid make_diagram1(); 
+
+struct GridWithWeights: SquareGrid {
+  std::unordered_set<GridLocation> forests;
+  GridWithWeights(int w, int h): SquareGrid(w, h) {}
+  double cost(GridLocation from_node, GridLocation to_node) const {
+    return forests.find(to_node) != forests.end()? 5 : 1;
+  }
+};
+
+GridWithWeights make_diagram4();
+#endif
+

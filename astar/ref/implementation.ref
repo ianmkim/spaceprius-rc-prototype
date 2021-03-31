@@ -1,0 +1,76 @@
+#include <iostream>
+#include <iomanip>
+#include <unordered_map>
+#include <unordered_set>
+#include <array>
+#include <vector>
+#include <utility>
+#include <queue>
+#include <tuple>
+#include <algorithm>
+#include <cstdlib>
+
+
+template<class Graph>
+void draw_grid(const Graph& graph, int field_width,
+               std::unordered_map<GridLocation, double>* distances=nullptr,
+               std::unordered_map<GridLocation, GridLocation>* point_to=nullptr,
+               std::vector<GridLocation>* path=nullptr) {
+  for (int y = 0; y != graph.height; ++y) {
+    for (int x = 0; x != graph.width; ++x) {
+      GridLocation id {x, y};
+      std::cout << std::left << std::setw(field_width);
+      if (graph.walls.find(id) != graph.walls.end()) {
+        std::cout << std::string(field_width, '#');
+      } else if (point_to != nullptr && point_to->count(id)) {
+        GridLocation next = (*point_to)[id];
+        if (next.x == x + 1) { std::cout << "> "; }
+        else if (next.x == x - 1) { std::cout << "< "; }
+        else if (next.y == y + 1) { std::cout << "v "; }
+        else if (next.y == y - 1) { std::cout << "^ "; }
+        else { std::cout << "* "; }
+      } else if (distances != nullptr && distances->count(id)) {
+        std::cout << (*distances)[id];
+      } else if (path != nullptr && find(path->begin(), path->end(), id) != path->end()) {
+        std::cout << '@';
+      } else {
+        std::cout << '.';
+      }
+    }
+    std::cout << '\n';
+  }
+}
+
+void add_rect(SquareGrid& grid, int x1, int y1, int x2, int y2) {
+  for (int x = x1; x < x2; ++x) {
+    for (int y = y1; y < y2; ++y) {
+      grid.walls.insert(GridLocation{x, y});
+    }
+  }
+}
+
+SquareGrid make_diagram1() {
+  SquareGrid grid(30, 15);
+  add_rect(grid, 3, 3, 5, 12);
+  add_rect(grid, 13, 4, 15, 15);
+  add_rect(grid, 21, 0, 23, 7);
+  add_rect(grid, 23, 5, 26, 7);
+  return grid;
+}
+
+GridWithWeights make_diagram4() {
+  GridWithWeights grid(10, 10);
+  add_rect(grid, 1, 7, 4, 9);
+  typedef GridLocation L;
+  grid.forests = std::unordered_set<GridLocation> {
+    L{3, 4}, L{3, 5}, L{4, 1}, L{4, 2},
+    L{4, 3}, L{4, 4}, L{4, 5}, L{4, 6},
+    L{4, 7}, L{4, 8}, L{5, 1}, L{5, 2},
+    L{5, 3}, L{5, 4}, L{5, 5}, L{5, 6},
+    L{5, 7}, L{5, 8}, L{6, 2}, L{6, 3},
+    L{6, 4}, L{6, 5}, L{6, 6}, L{6, 7},
+    L{7, 3}, L{7, 4}, L{7, 5}
+  };
+  return grid;
+}
+

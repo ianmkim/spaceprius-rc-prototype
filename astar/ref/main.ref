@@ -1,0 +1,106 @@
+#include <vector>
+#include <queue>
+#include <map>
+#include <iostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <array>
+#include <string>
+#include <algorithm>
+
+#include "implementation.h"
+
+struct SimpleGraph {
+    std::unordered_map<char, std::vector<char>> edges;
+    std::vector<char> neighbors(char id){
+        return edges[id];
+    }
+};
+
+SimpleGraph example_graph {{
+    {'A', {'B'}},
+    {'B', {'C'}},
+    {'C', {'B', 'D', 'F'}},
+    {'D', {'C', 'E'}},
+    {'E', {'F'}},
+    {'F', {}},
+  }};
+
+
+void breadth_first_search(SimpleGraph graph, char start){
+    std::queue<char> frontier;
+    frontier.push(start);
+
+    std::unordered_set<char> reached;
+    reached.insert(start);
+
+    while(!frontier.empty()){
+        char current = frontier.front();
+        frontier.pop();
+
+        std::cout <<" Visiting " << current << "\n";
+        for(char next : graph.neighbors(current)){
+            if(reached.find(next) == reached.end()){
+                frontier.push(next);
+                reached.insert(next);
+            }
+        }
+    }
+}
+
+struct GridLocation {
+    int x, y;
+};
+
+namespace std {
+template <> struct hash<GridLocation> {
+    typedef GridLocation argument_type;
+    typedef std::size_t result_type;
+    std::size_t operator() (const GridLocation& id) const noexcept{
+        return std::hash<int>() (id.x ^ (id.y << 4));
+    }
+};
+}
+
+struct SquareGrid {
+    static std::array<GridLocation, 4> DIRS;
+    int width, height;
+    std::unordered_set<GridLocation> walls;
+
+    SquareGrid(int width_, int height_) : width(width_), height(height_){}
+
+    bool in_bounds(GridLocation id) const {
+        return 0 <= id.x && id.x < width &&
+            0 <= id.y && id.y < height;
+    }
+
+    bool passable(GridLocation id) const {
+        return walls.find(id) == walls.end();
+    }
+
+    std::vector<GridLocation> neighbors(GridLocation id) const {
+        std::vector<GridLocation> results;
+        for(GridLocation dir : DIRS){
+            GridLocation next{id.x + dir.x, id.y + dir.y};
+            if(in_bounds(next) && passable(next)){
+                results.push_back(next);
+            }
+        }
+
+        if((id.x + id.y) % 2 == 0){
+            std::reverse(results.begin(), results.end());
+        }
+
+        return results;
+    }
+};
+
+std::array<GridLocation, 4> SquareGrid::DIRS = {
+    GridLocation {1,0}, GridLocation{-1, 0},
+    GridLocation {0,-1}, GridLocation{0,1},
+};
+
+int main(){
+    SquareGrid grid = make_diagram1();
+    draw_grid(grid);
+}
