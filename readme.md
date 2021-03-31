@@ -19,9 +19,27 @@ Toy implementation of delaunay triangulation of a mesh from PCD file. Make sure 
 Test file can be run by compiling and running the script compile script
 
 
-``` $ chmod +x compile $ ./compile ```
+``` 
+$ chmod +x compile $ ./compile 
+```
 
-To run the script, pipe a PCD file to the compiled binary. ``` $ cat <PCD 
-FILE>.pcd | ./a.out ```
+To run the script, pipe a PCD file to the compiled binary.
+
+``` 
+$ cat <PCD FILE>.pcd | ./a.out 
+```
 
 Once the 3D visualization shows up, you can navigate using standard control schemes. h, j, k, l keys to change camera angle and -+ to change zoom. These settings can be modified in the delaunay_triag.cpp file
+
+
+## TODO
+ - [x] implement a*
+ - [x] implement delaunay triagulation
+ - [ ] Add decimation to delaunay triagulation mesh
+ - [ ] algorithm for getting heuristics from decimated mesh
+ - [x] Change a* to operate as a library
+ - [ ] interactive visualization layer i.e. point and click interaction for testing
+ - [ ] algorithm to calculate penalties for certain triangles
+ - [ ] connect path from a* output
+ - [ ] path smoothing
+ - [ ] safety corridors
