@@ -52,11 +52,11 @@ Once the 3D visualization shows up, you can navigate using standard control sche
  - [x] implement delaunay triagulation
  - [x] Migrate to a faster & more reliable delaunay triangulation method
  - [x] Add decimation to delaunay triagulation mesh
- - [ ] Make triangles into nodes on a graph
- - [ ] algorithm for getting heuristics from decimated mesh
+ - [x] Make triangles into nodes on a graph
+ - [x] algorithm for getting heuristics from decimated mesh
  - [x] Change a* to operate as a library
  - [ ] algorithm to calculate penalties for certain triangles
- - [ ] connect path from a* output
- - [ ] interactive visualization layer i.e. point and click interaction for testing
+ - [x] connect path from a* output
+ - [x] interactive visualization layer i.e. point and click interaction for testing
  - [ ] path smoothing
  - [ ] safety corridors
