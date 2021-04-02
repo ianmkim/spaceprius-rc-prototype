@@ -1,7 +1,7 @@
 #ifndef RENDER_H
-#define RENDER_H
+#define RENDER_H 
 
-#include <Fade_2D.h>
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
@@ -14,21 +14,25 @@
 #include <list>
 #include <vector>
 
-using namespace GEOM_FADE25D;
 
-void init(){
-   glClearColor(0.0, 0.0, 0.0, 0.0);
-   glMatrixMode(GL_PROJECTION);
-   glLoadIdentity();
-   glMatrixMode(GL_MODELVIEW);
-}
-
-
-float zoom = 0;
 int theta = 45, phi = 45;
 int gluLookAt_On = 1;
 int width, height;
+int mycount = 0;
+float zoom = 2.5;
 const double radianFactor = 2 * 3.1415926535 / 360; 
+
+
+void *font = GLUT_BITMAP_TIMES_ROMAN_24;
+
+void outputCharacter(float x, float y, float z, char *string) {
+  int len, i;
+  glRasterPos3f(x, y, z);
+  len = (int) strlen(string);
+  for (i = 0; i < len; i++) {
+    glutBitmapCharacter(font, string[i]);
+  }
+}
 
 void changeSize(int w, int h){
     width = w;
@@ -42,7 +46,7 @@ void changeSize(int w, int h){
     
     glViewport(0, 0, w, h);
 	
-	gluPerspective(45, ratio, 1, 1000000);	
+	gluPerspective(45, ratio, 1, 1000);	
 	
 	float r = 5.0f;
 	float eyeX = r * sin(theta * radianFactor) * cos(phi * radianFactor);
@@ -61,12 +65,10 @@ void changeSize(int w, int h){
 	glScalef(zoom, zoom, zoom);
 	glMatrixMode(GL_MODELVIEW);		
 }
-
-
 void inputKey(unsigned char c, int x, int y){
     switch (c) {			
-			case '+' : zoom = zoom+5; break;
-			case '-' : zoom = zoom -5; break;
+			case '+' : zoom = zoom+ 0.5; break;
+			case '-' : zoom = zoom-0.5; break;
             case 'k' : theta++; if(theta > 360) theta = 1; break;
             case 'j' : phi++; if(phi > 360) phi = 1; break;
             case 'l' : theta--; if(theta < 0) theta = 359; break;
@@ -76,5 +78,10 @@ void inputKey(unsigned char c, int x, int y){
         changeSize(width, height);
 }
 
-
+void init(){
+   glClearColor(0.0, 0.0, 0.0, 0.0);
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   glMatrixMode(GL_MODELVIEW);
+}
 #endif

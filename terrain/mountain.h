@@ -1,6 +1,8 @@
 #ifndef MOUNTAIN_H
 #define MOUNTAIN_H
 
+#include <Fade_2D.h>
+using namespace GEOM_FADE25D;
 void getMountain(std::vector<Point2>& vPointsOut)
 {
 	// arr[] stores 36 kB mountain data to avoid the hassle of file paths in test environments
