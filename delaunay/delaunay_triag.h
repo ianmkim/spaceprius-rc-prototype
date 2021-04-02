@@ -635,6 +635,7 @@ void readFromStdin(int argc, char **argv){
     glutIdleFunc(renderScene);
     glutKeyboardFunc(inputKey);
     glutReshapeFunc(changeSize);
+    glutPassiveMotionFunc(mouseMove);
 
     glutMainLoop();
 }
