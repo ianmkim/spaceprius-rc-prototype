@@ -23,7 +23,11 @@ Make sure that after you've compiled the fade2d library, move your respective bi
 
 ### Usage
 ```
-./compile && a.out && mv *.obj visualizer && mv *.xyz visualizer && cd visualizer && python3 vis.py
+./compile && ./a.out && mv *.obj visualizer && mv *.xyz visualizer && cd visualizer && python3 viz.py
+
+or 
+
+./run 
 ```
 
 
@@ -70,3 +74,4 @@ Once the 3D visualization shows up, you can navigate using standard control sche
  - [x] interactive visualization layer i.e. point and click interaction for testing
  - [ ] path smoothing
  - [ ] safety corridors
+ - [ ] add floating point support for A* implementation
