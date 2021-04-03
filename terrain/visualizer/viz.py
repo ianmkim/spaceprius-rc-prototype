@@ -15,8 +15,6 @@ if __name__ == "__main__":
     print(points)
     plotter = pv.Plotter()
 
-    triangleIds = spline.make_triangle_labels()
-
     plotter.add_mesh(mesh, show_edges=True, pickable=True)
     plotter.add_lines(points)
     cps = plotter.show()

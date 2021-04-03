@@ -15,7 +15,7 @@ std::unordered_map<int, Triangle2*> meshToIdMesh(std::vector<Triangle2*> triangl
 
 Graph graphFromMesh(std::unordered_map<int, Triangle2*> triangles);
 
-std::unordered_map<int, int> heuristicsFromMesh(std::unordered_map<int, Triangle2*> triangles, int start);
+std::unordered_map<int, float> heuristicsFromMesh(std::unordered_map<int, Triangle2*> triangles, int start);
 
 std::unordered_map<double, int> getTriToId(std::unordered_map<int, Triangle2*> allTris);
 

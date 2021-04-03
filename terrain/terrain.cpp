@@ -10,6 +10,7 @@
 #include "graph.h"
 #include "astar.h"
 #include "terrain.h"
+#include "nodeUtils.h"
 
 using namespace GEOM_FADE25D;
 
@@ -46,13 +47,13 @@ std::unordered_map<double, int> getTriToId(std::unordered_map<int, Triangle2*> a
 }
 
 
-std::unordered_map<int, int> heuristicsFromMesh(std::unordered_map<int, Triangle2*> triangles, int start){
-    std::unordered_map<int, int> heuristics;
+std::unordered_map<int, float> heuristicsFromMesh(std::unordered_map<int, Triangle2*> triangles, int start){
+    std::unordered_map<int, float> heuristics;
     Triangle2* thisTri = triangles.at(start);
     for(auto kv : triangles){
         Point2 thisCenter = thisTri->getBarycenter();
         Point2 center = kv.second->getBarycenter();
-        int euDistance = int(distance(thisCenter.x(),thisCenter.y(),thisCenter.z(), center.x(), center.y(), center.z())*100);
+        int euDistance = distance(thisCenter.x(),thisCenter.y(),thisCenter.z(), center.x(), center.y(), center.z())*10;
         heuristics.insert({ kv.first, euDistance});
     } return heuristics;
 }
@@ -77,11 +78,16 @@ Graph graphFromMesh(std::unordered_map<int, Triangle2*> allTris){
 
                 // calculate distance
                 // TODO: add our own costs here
-                float euDistance = distance(thisCenter.x(),thisCenter.y(),thisCenter.z(), center.x(), center.y(), center.z());
-
+                float euDistance = distance(thisCenter.x(),thisCenter.y(),thisCenter.z(), center.x(), center.y(), center.z()) * 10;
+                float cost = euDistance * exp(euDistance/(getArea(thisTri) + getArea(innerTri)));
+                cost *= getRelativeAngle(thisTri, innerTri)+ 1;
+                cost *= getAbsoluteAngle(innerTri)+ 1;
+                cost *= getRegionalAngles(innerTri)+ 1;
+                cost *= 1/(getArea(innerTri)*1000);
+                
                 // insert nodes & connect
-                graph.connect(id, otherTriId, euDistance*100);
-                graph.connect(otherTriId, id, euDistance*100);
+                graph.connect(id, otherTriId, cost);
+                graph.connect(otherTriId, id, cost);
             }
         }
     } return graph;

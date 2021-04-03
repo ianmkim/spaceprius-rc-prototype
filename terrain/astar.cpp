@@ -32,7 +32,7 @@ void vectorPrinter(std::vector<int> open){
 
 
 /** run the astar algorithm given heuristics, start, and end **/
-std::vector<Node> astarSearch(Graph *graph, std::unordered_map<int,int> heuristics, int start, int end){
+std::vector<Node> astarSearch(Graph *graph, std::unordered_map<int, float> heuristics, int start, int end){
     std::unordered_map<int, Node> total_nodes;
 
     std::vector<Node> open;

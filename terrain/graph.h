@@ -13,9 +13,9 @@ class Node {
         std::string label;
         int parent;
 
-        int g;
-        int h;
-        int f;
+        float g;
+        float h;
+        float f;
 
         Node(int id, int parent){
             this->id = id;
@@ -35,7 +35,7 @@ class Node {
         }
 };
 
-typedef std::unordered_map<int, std::unordered_map<int, int>> DirectedGraph;
+typedef std::unordered_map<int, std::unordered_map<int,float>> DirectedGraph;
 
 class Graph{
     public:
@@ -55,13 +55,13 @@ class Graph{
 
         void connect(int a, int b );
 
-        void connect(int a, int b, int distance);
+        void connect(int a, int b, float distance);
     
         void insertNode(int a);
 
-        std::unordered_map<int,int > get(int a);
+        std::unordered_map<int,float> get(int a);
 
-        int get(int a, int b);
+        float get(int a, int b);
 
         std::vector<int> nodes();
 };

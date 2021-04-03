@@ -28,7 +28,7 @@ void Graph::makeUndirected(){
             DirectedGraph::const_iterator got = this->directedGraph.find(innerkv.first);
             if(got == this->directedGraph.end()){
                 // key not found
-                std::unordered_map<int,int> new_om;
+                std::unordered_map<int, float> new_om;
                 new_om.insert({kv.first, innerkv.second});
                 this->directedGraph.insert({innerkv.first, new_om});
             } else {
@@ -39,13 +39,13 @@ void Graph::makeUndirected(){
     }
 }
 
-void Graph::connect(int a, int b, int distance){
+void Graph::connect(int a, int b, float distance){
     DirectedGraph::const_iterator got = this->directedGraph.find(a);
     this->insertNode(a);
     this->insertNode(b);
     if(got == this->directedGraph.end()){
         // key not found
-        std::unordered_map<int,int> new_om;
+        std::unordered_map<int, float> new_om;
         new_om.insert({b, distance});
         this->directedGraph.insert({a, new_om});
     } else {
@@ -58,18 +58,18 @@ void Graph::connect(int a, int b){
     this->connect(a, b, 1);
 }
 
-std::unordered_map<int,int> Graph::get(int a){
+std::unordered_map<int, float> Graph::get(int a){
     DirectedGraph::const_iterator got = this->directedGraph.find(a);
     if(got == this->directedGraph.end()){
         // key not found
-        std::unordered_map<int,int> new_om;
+        std::unordered_map<int,float> new_om;
         return new_om;
     } else {
         return this->directedGraph.at(a);
     }
 }
 
-int Graph::get(int a, int b){
+float Graph::get(int a, int b){
     return this->directedGraph.at(a).at(b);
 }
 
