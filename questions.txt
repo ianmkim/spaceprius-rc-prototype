@@ -1,0 +1,5 @@
+questions that need answering
+ - long term path planning, what if the destination is beyond the current view?
+ - iteration length, how many meters do we want to travel before we recalculate the mesh and path?
+ - what kind of path smoothing algorithm?
+ - do we want to include any ML based system to weigh the different triangles and optimize the cost function itself?

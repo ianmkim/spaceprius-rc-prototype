@@ -3,13 +3,25 @@ This repository contains control & planning software for the RC prototype
 (i.e Space Prius)
 
 ## Terrain 
-We're moving from the toy implementation of Delaunay Triangulation to a fast as shit 2.5d triangulator called "fade2d." Navigate to the terrain directory, edit your distribution in the makefile and build the project. If on a unix compliant system make sure you have libgmp installed before you build.
+### Installation
+We're moving from the toy implementation of Delaunay Triangulation to a fast as shit 2.5d triangulator called "fade2d." 
+
+Python dependencies 
+`cd terrain/visualizer && pip3 install -r requirements.txt`
+
+CPP dependencies
+ - libglfw3
+ - libglfw3-dev
+ - libglm-dev
+ - libgmp
+ - fade2d
+
+#### To build fade2d
+Navigate to the terrain directory, edit your distribution in the makefile and build the project. If on a unix compliant system make sure you have libgmp installed before you build.
 
 Make sure that after you've compiled the fade2d library, move your respective binaries to the root terrain directory and build with the "compile" script (warning, on mac some changes to the compile script may be necessary, but I'm sure you can figure that out Justin :) )
 
-MAKE SURE you have libglfw3, libglfw3-dev, and libglm-dev installed (if you're on ubuntu that is)
-
-All the implementation is finished, to run the a* demo paste the following into the terminal. (Make sure that you have installed the python dependencies by running `pip3 install -r requirements.txt` in the ./terrain/visualizer directory)
+### Usage
 ```
 ./compile && a.out && mv *.obj visualizer && mv *.xyz visualizer && cd visualizer && python3 vis.py
 ```
