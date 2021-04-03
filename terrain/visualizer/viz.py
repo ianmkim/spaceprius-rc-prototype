@@ -8,7 +8,9 @@ if __name__ == "__main__":
     mesh = pv.read("mesh.vtk")
 
     points = spline.make_points()
+    refined_points = spline.make_points(path_file="refined.xyz")
     line = spline.lines_from_points(points)
+    refined = spline.lines_from_points(refined_points)
     line['scalars'] = np.arange(line.n_points)
 
 
@@ -17,5 +19,6 @@ if __name__ == "__main__":
 
     plotter.add_mesh(mesh, show_edges=True, pickable=True)
     plotter.add_lines(points)
+    plotter.add_lines(refined_points, color="green")
     cps = plotter.show()
 

@@ -15,6 +15,7 @@
 #include "decimation.h"
 #include "astar.h"
 #include "terrain.h"
+#include "pathUtils.h"
 
 #define START 0
 #define END 900
@@ -156,6 +157,15 @@ int main(int argc, char** argv){
             Point2 center = tri->getBarycenter();
             pathfile << center.x() << " " << center.y() << " " << center.z() << std::endl;
         } 
+    } else std::cout << "Unable to open paths file" << std::endl;
+    
+    // write the refined path file to disk
+    std::vector<float*> refinedPath = refinePath(path, triangles);
+    std::ofstream refinedfile("refined.xyz");
+    if(refinedfile.is_open()){
+        for(float* n : refinedPath){
+            refinedfile << n[0] << " " << n[1] << " " << n[2] << std::endl;
+        }
     } else std::cout << "Unable to open paths file" << std::endl;
 
     // CODE FOR GLUT VISUALIZATION
