@@ -103,21 +103,16 @@ void write(const std::string& name, const Fade_2D& dt){
 }
 
 int main(int argc, char** argv){
+    // get input point clouds
     std::vector<Point2> vInputPoints;
-    //getInputPoints("", vInputPoints);
 	getMountain(vInputPoints);
 
+    // decimate the point cloud based on random sampling
     std::cout << "Predecimation points size: " << vInputPoints.size() << std::endl;
     decimate(&vInputPoints, 0.1);
     std::cout << "Decimated points size: " << vInputPoints.size() << std::endl;
 
-
-    /*
-    for(Point2 point : vInputPoints){
-        std::cout <<  point << std::endl;
-    }
-    */
-
+    // perform delaunay triangulation
     Fade_2D dt;
     CloudPrepare cloudPrepare;
     cloudPrepare.add(vInputPoints);
@@ -125,38 +120,25 @@ int main(int argc, char** argv){
     std::vector<Triangle2*> vecTriangles;
     dt.getTrianglePointers(vecTriangles);
     
-    std::cout << "Triangle size: " << vecTriangles.size() << std::endl;
-
+    // assign a unique int id to each triangle in the mesh
     triangles = meshToIdMesh(vecTriangles);
+    // calculate heuristics for A*
     auto heuristics = heuristicsFromMesh(triangles, START);
+    // create a graph from the labeled mesh
     Graph graph = graphFromMesh(triangles);
 
+    // perform A* shortest path search based on heuristics
     path = astarSearch(&graph, heuristics, START, END);
+    // print path
     std::cout << "path length: " << path.size() << std::endl;
     std::cout << "PATH: ";
     for(Node n : path){
         std::cout << n << std::endl;
     }
 
-    int moreThanThree = 0;
-
-    for(auto val : graph.directedGraph){
-        std::cout << val.first << ":";
-        int count = 0;
-        for(auto kv : val.second){
-            count++;
-            std::cout << "\t" << kv.first << ": " << kv.second << " | " << calculateHash(triangles.at(kv.first)) <<std::endl;
-        } 
-        std::cout << count << std::endl;
-        if(count > 3) moreThanThree++;
-        std::cout << std::endl;
-    }
-    
-    std::cout << "Graph node with more than three connections: " << moreThanThree << std::endl;
-
-    // write the mesh to .list and .obj
+    // write the mesh to disk
     write("mesh", dt);
-
+    // write the centers of each triangles to disk alongside ID
     std::ofstream centerfile("centers.xyz");
     if(centerfile.is_open()){
         for(auto kv : triangles){
@@ -164,10 +146,9 @@ int main(int argc, char** argv){
             Point2 center = kv.second->getBarycenter();
             centerfile << id << " " << center.x() << " " << center.y() << " " << center.z() << std::endl;
         }
-    } else {
-        std::cout << "Unable to open centers file" << std::endl;
-    }
+    } else std::cout << "Unable to open centers file" << std::endl;
     
+    // write the path file to disk
     std::ofstream pathfile("path.xyz");
     if(pathfile.is_open()){
         for(Node n : path){
@@ -175,10 +156,10 @@ int main(int argc, char** argv){
             Point2 center = tri->getBarycenter();
             pathfile << center.x() << " " << center.y() << " " << center.z() << std::endl;
         } 
-    } else {
-        std::cout << "Unable to open paths file" << std::endl;
-    }
+    } else std::cout << "Unable to open paths file" << std::endl;
 
+    // CODE FOR GLUT VISUALIZATION
+    // only use for quick and dirty tasks, there's a better visualizer in python
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowPosition(100,100);
@@ -189,9 +170,6 @@ int main(int argc, char** argv){
     glutIdleFunc(renderScene);
     glutKeyboardFunc(inputKey);
     glutReshapeFunc(changeSize);
-    //glutPassiveMotionFunc(mouseMove);
-
-
     glutMainLoop();
 }
 
