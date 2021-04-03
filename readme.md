@@ -69,9 +69,9 @@ Once the 3D visualization shows up, you can navigate using standard control sche
  - [x] Make triangles into nodes on a graph
  - [x] algorithm for getting heuristics from decimated mesh
  - [x] Change a* to operate as a library
- - [ ] algorithm to calculate penalties for certain triangles
+ - [x] algorithm to calculate penalties for certain triangles
  - [x] connect path from a* output
  - [x] interactive visualization layer i.e. point and click interaction for testing
+ - [x] add floating point support for A* implementation
  - [ ] path smoothing
  - [ ] safety corridors
- - [ ] add floating point support for A* implementation
