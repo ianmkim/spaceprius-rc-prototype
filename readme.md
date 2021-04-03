@@ -7,9 +7,7 @@ We're moving from the toy implementation of Delaunay Triangulation to a fast as 
 
 Make sure that after you've compiled the fade2d library, move your respective binaries to the root terrain directory and build with the "compile" script (warning, on mac some changes to the compile script may be necessary, but I'm sure you can figure that out Justin :) )
 
-make sure you have libglfw3 and libglfw3-dev installed (if you're on ubuntu that is)
-
-Also make sure that you have libglm-dev installed
+MAKE SURE you have libglfw3, libglfw3-dev, and libglm-dev installed (if you're on ubuntu that is)
 
 All the implementation is finished, to run the a* demo paste the following into the terminal. (Make sure that you have installed the python dependencies by running `pip3 install -r requirements.txt` in the ./terrain/visualizer directory)
 ```
