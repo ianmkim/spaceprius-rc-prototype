@@ -1,6 +1,8 @@
-# Rover Software
+# Rover Software [DEP]
 This repository contains control & planning software for the RC prototype 
 (i.e Space Prius)
+
+DO NOT USE
 
 ## Terrain 
 ### Installation
