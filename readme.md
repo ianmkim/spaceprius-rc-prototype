@@ -4,7 +4,7 @@ This repository contains control & planning software for the RC prototype
 
 ## Terrain 
 ### Installation
-We're moving from the toy implementation of Delaunay Triangulation to a fast as shit 2.5d triangulator called "fade2d." 
+We're moving from the toy implementation of Delaunay Triangulation to a blazing fast 2.5d triangulator called "fade2d." 
 
 Python dependencies 
 `cd terrain/visualizer && pip3 install -r requirements.txt`
